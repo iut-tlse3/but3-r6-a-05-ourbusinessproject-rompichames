@@ -1,23 +1,28 @@
 package ourbusinessproject;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 //Introduction JPA
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
 
 @Entity
 public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
+
     @NotBlank
     String title;
     String description;
 
-    public Project() {
+    @NotNull
+    @ManyToOne
+    Enterprise enterprise;
+
+    public Enterprise getEnterprise() {
+        return enterprise;
     }
 
     public Long getId() {
@@ -36,4 +41,7 @@ public class Project {
         this.description = description;
     }
 
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
+    }
 }
