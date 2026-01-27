@@ -1,11 +1,9 @@
 package ourbusinessproject;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 public class Project {
     @NotBlank
-    @NotNull
     String title;
     String description;
 
