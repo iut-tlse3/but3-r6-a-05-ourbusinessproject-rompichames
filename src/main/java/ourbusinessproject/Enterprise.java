@@ -18,7 +18,7 @@ public class Enterprise {
     private Long id;
     @NotBlank
     String name;
-    @Size(min = 16)
+    @Size(min = 10)
     String description;
     @NotBlank
     String contactName;

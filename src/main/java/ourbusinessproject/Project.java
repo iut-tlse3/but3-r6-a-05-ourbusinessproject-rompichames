@@ -10,14 +10,22 @@ import jakarta.persistence.GenerationType;
 
 @Entity
 public class Project {
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @Id
+    private Long id;
     @NotBlank
     String title;
     String description;
 
     public Project() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setTitle(String title) {
@@ -27,4 +35,5 @@ public class Project {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
