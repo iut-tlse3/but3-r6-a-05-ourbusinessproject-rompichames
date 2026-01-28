@@ -1,14 +1,17 @@
 package ourbusinessproject;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 //Introduction JPA
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 
 @Entity
 public class Enterprise {
@@ -25,6 +28,9 @@ public class Enterprise {
     @Email
     @NotBlank
     String contactEmail;
+
+    @OneToMany (mappedBy = "enterprise")
+    public Collection <Project> projects;
 
     public Enterprise() {
     }
@@ -50,5 +56,16 @@ public class Enterprise {
     }
     public void setContactEmail(String contactEmail){
         this.contactEmail=contactEmail;
+    }
+
+    public Collection<Project> getProjects() {
+        return projects;
+    }
+
+    public void addProject(Project project){
+        if (this.projects == null) {
+            this.projects = new HashSet<>();    //permet qu'il n'y ai pas plusieurs fois le mm projet dans enterprise
+        }
+        projects.add(project);
     }
 }
