@@ -15,14 +15,28 @@ public class EnterpriseProjectService {
     private EntityManager entityManager;
 
 
+    /**
+     * Create a new EnterpriseProjectService initialized with an entity manager
+     * @param entityManager the entity manager
+     */
     public EnterpriseProjectService(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    public Project newProject(String title, String description, Enterprise enterprise) {
+    public EntityManager getEntityManager() {
+        return this.entityManager;
+    }
+
+    /**
+     * Create a new project
+     * @param aTitle the title of the new project
+     * @param aDescription the description of the new project
+     * @return the created project
+     */
+    public Project newProject(String aTitle, String aDescription, Enterprise enterprise) {
         Project project = new Project();
-        project.setTitle(title);
-        project.setDescription(description);
+        project.setTitle(aTitle);
+        project.setDescription(aDescription);
         project.setEnterprise(enterprise);
         this.entityManager.persist(project);
         this.entityManager.flush();
@@ -30,32 +44,58 @@ public class EnterpriseProjectService {
         return project;
     }
 
-    public EntityManager getEntityManager() {
-        return entityManager;
+    /**
+     * Find the project for the given id
+     * @param projectId the id of the searched project
+     * @return the project with corresponding id or null
+     */
+    public Project findProjectById(Long projectId) {
+        return this.entityManager.find(Project.class, projectId);
     }
 
-    public Enterprise newEnterprise(String aName, String aDescription, String aContactName, String mail) {
+    /**
+     * Create a new enterprise
+     * @param aName the name of the enterprise
+     * @param aDescription the description of the enterprise
+     * @param aContactName the contact name of the enterprise
+     * @param mail the mail of the enterprise
+     * @return the created enterprise
+     */
+    public Enterprise newEnterprise(
+            String aName,
+            String aDescription,
+            String aContactName,
+            String mail
+    ) {
         Enterprise enterprise = new Enterprise();
         enterprise.setName(aName);
         enterprise.setDescription(aDescription);
-        enterprise.setContactName(aContactName);
         enterprise.setContactEmail(mail);
+        enterprise.setContactName(aContactName);
         this.entityManager.persist(enterprise);
         this.entityManager.flush();
         return enterprise;
     }
 
-    public Project findProjectById(Long anId) {
-        return entityManager.find(Project.class, anId);
+    /**
+     * Find the enterprise for the given id
+     * @param enterpriseId the id of the searched enterprise
+     * @return the enterprise if it exists else null
+     */
+    public Enterprise findEnterpriseById(Long enterpriseId) {
+        return this.entityManager.find(Enterprise.class, enterpriseId);
     }
 
-    public Enterprise findEnterpriseById(Long anId) {
-        return entityManager.find(Enterprise.class, anId);
-    }
-
+    /**
+     *
+     * @return the list of all projects order by title
+     */
     public List<Project> findAllProjects() {
-        String query = "SELECT p FROM Project p ORDER BY p.title";
-        TypedQuery<Project> queryObj = entityManager.createQuery(query, Project.class);
-        return queryObj.getResultList();
+        String queryAsJpql = "select p from Project p order by p.title";
+        TypedQuery<Project> query = this.entityManager.createQuery(
+                queryAsJpql,
+                Project.class
+        );
+        return query.getResultList();
     }
 }

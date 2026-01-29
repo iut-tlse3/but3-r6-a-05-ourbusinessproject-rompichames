@@ -35,6 +35,10 @@ public class Enterprise {
     public Enterprise() {
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
@@ -43,19 +47,32 @@ public class Enterprise {
         this.id = id;
     }
 
-    public void setName(String name){
-        this.name=name;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description){
-        this.description=description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setContactName(String contactName){
-        this.contactName=contactName;
+    public String getDescription() {
+        return description;
     }
-    public void setContactEmail(String contactEmail){
-        this.contactEmail=contactEmail;
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
     }
 
     public Collection<Project> getProjects() {
