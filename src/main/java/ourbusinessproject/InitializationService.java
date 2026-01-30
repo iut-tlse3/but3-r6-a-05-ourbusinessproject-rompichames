@@ -26,6 +26,8 @@ public class InitializationService {
      */
     @Transactional
     public void initProjects() {
+        // Le phénomène est un rollback produit par le transactional, car comme l'un des projets n'est
+        // pas initialisé la transaction est annulée
         initEnterprise();
         project1E1 = enterpriseProjectService.newProject("p1E1","P1E1 desc",enterprise1);
         project1E2 = enterpriseProjectService.newProject("p1E2","P1E2 desc",enterprise2);
